@@ -1,0 +1,34 @@
+trigger:
+  branches:
+    include:
+      - '*'
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/Themis.Geometry.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+# - task: NuGetToolInstaller@1
+
+# - task: NuGetCommand@2
+#   inputs:
+#     restoreSolution: '$(solution)'
+
+- task: DotNetCoreCLI@2
+  displayName: "Build Themis.Geometry"
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(buildConfiguration)'
+    workingDirectory: src/Themis.Geometry
+
+- task: DotNetCoreCLI@2
+  displayName: "Unit test Themis.Geometry"
+  inputs:
+    command: 'test'
+    arguments: '--configuration $(buildConfiguration)'
+    publishTestResults: false
+    workingDirectory: tests/Themis.Geometry.Tests
