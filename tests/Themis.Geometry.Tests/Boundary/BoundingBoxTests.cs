@@ -4,7 +4,9 @@ using Bogus;
 using Xunit;
 using Assert = Xunit.Assert;
 
-namespace Themis.Geometry.Boundary.Tests
+using Themis.Geometry.Boundary;
+
+namespace Themis.Geometry.Tests.Boundary
 {
     public class BoundingBoxTests
     {

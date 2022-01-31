@@ -189,7 +189,7 @@ namespace Themis.Geometry.Boundary
         /// </summary>
         /// <param name="x">Input position X</param>
         /// <param name="y">Input position Y</param>
-        /// <param name="z">Input position Z</param>
+        /// <param name="z">[Optional] Input position Z - defaults to double.NaN</param>
         /// <returns></returns>
         public bool Contains(double x, double y, double z = double.NaN)
         {
