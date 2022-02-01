@@ -108,8 +108,6 @@ namespace Themis.Geometry.Boundary
             return this;
         }
 
-        
-
         /// <summary>
         /// Extend the bounding box by an input scalar amount
         /// </summary>
@@ -182,7 +180,6 @@ namespace Themis.Geometry.Boundary
             return new BoundingBox().WithMinima(x - halfWidth, y - halfWidth, z - halfWidth)
                                     .WithMaxima(x + halfWidth, y + halfWidth, z + halfWidth);
         }
-
         #endregion
 
         public bool Contains(double x, double y, double z = double.NaN)

@@ -6,7 +6,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace Themis.Geometry.Triangles
 {
-    public class Triangle : ITriangle
+    public class Triangle : ITriangle, IEquatable<Triangle>
     {
         /// <summary>
         /// Allowable error within containment calculations
@@ -27,7 +27,8 @@ namespace Themis.Geometry.Triangles
 
         public Triangle(IEnumerable<Vector<double>> verts)
         {
-            this.Vertices = verts.ToList();
+            this.Vertices = verts.Select(v => v.Clone())
+                                 .ToList();
 
             this.Bounds = GenerateBoundingBox(Vertices);
             this.Edges = GenerateEdges(Vertices);
@@ -40,7 +41,7 @@ namespace Themis.Geometry.Triangles
             double[] y = verts.Select(v => v[1]).ToArray();
 
             return new BoundingBox().WithMinima(x.Min(), y.Min())
-                                    .WithMaxima(x.Max(), y.Min());
+                                    .WithMaxima(x.Max(), y.Max());
         }
 
         static IList<LineSegment> GenerateEdges(IList<Vector<double>> verts)
@@ -99,6 +100,26 @@ namespace Themis.Geometry.Triangles
             //< This will require some.. illustration as to how it magically works
             //< Otherwise this is some quake-tier inverse square hackery
             return (D - Normal[0] * x + Normal[1] * y) / Normal[2];
+        }
+        #endregion
+
+        #region IEquatable
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+
+            return Equals(obj as Triangle);
+        }
+
+        public bool Equals(Triangle? other)
+        {
+            return other != null &&
+                   Vertices.SequenceEqual(other.Vertices);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Vertices.ToArray());
         }
         #endregion
     }
