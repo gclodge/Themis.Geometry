@@ -7,7 +7,6 @@ namespace Themis.Geometry.Boundary
         //< This is the allowable 'epsilon' (error) when checking intersection
         const double IntersectionEPS = 1E-7;
 
-        #region Fields
         public double MinX { get; private set; } = double.MaxValue;
         public double MinY { get; private set; } = double.MaxValue;
         public double MinZ { get; private set; } = double.MaxValue;
@@ -15,9 +14,7 @@ namespace Themis.Geometry.Boundary
         public double MaxX { get; private set; } = double.MinValue;
         public double MaxY { get; private set; } = double.MinValue;
         public double MaxZ { get; private set; } = double.MinValue;
-        #endregion
 
-        #region Properties
         public double Width => (MaxX - MinX);
         public double Height => (MaxY - MinY);
         public double Depth => (MaxZ - MinZ);
@@ -28,7 +25,6 @@ namespace Themis.Geometry.Boundary
         public double CentroidX => GetCentroid(MinX, MaxX);
         public double CentroidY => GetCentroid(MinY, MaxY);
         public double CentroidZ => GetCentroid(MinZ, MaxZ);
-        #endregion
 
         #region Fluent Interface
         /// <summary>
@@ -112,13 +108,40 @@ namespace Themis.Geometry.Boundary
             return this;
         }
 
+        
+
+        /// <summary>
+        /// Extend the bounding box by an input scalar amount
+        /// </summary>
+        /// <param name="buffer">Scalar amount to buffer the minima & maxima by</param>
+        /// <returns></returns>
+        public BoundingBox Buffer(double buffer)
+        {
+            return new BoundingBox().WithMinima(MinX - buffer, MinY - buffer, MinZ - buffer)
+                                    .WithMaxima(MaxX + buffer, MaxY + buffer, MaxZ + buffer);
+        }
+
+        /// <summary>
+        /// Expand the current BoundingBox extents to include the input BoundingBox by comparing maxima/minima
+        /// </summary>
+        /// <param name="that">Input BoundingBox to include</param>
+        /// <returns></returns>
+        public BoundingBox ExpandToInclude(BoundingBox that)
+        {
+            return new BoundingBox()
+                        .WithMinima(Math.Min(this.MinX, that.MinX), Math.Min(this.MinY, that.MinY), Math.Min(this.MinZ, that.MinZ))
+                        .WithMaxima(Math.Max(this.MaxX, that.MaxX), Math.Max(this.MaxY, that.MaxY), Math.Max(this.MaxZ, that.MaxZ));
+        }
+        #endregion
+
+        #region Factory Methods
         /// <summary>
         /// Generate a new BoundingBox with the same Minima & Maxima of an existing BoundingBox
         /// </summary>
         /// <param name="other">Input BoundingBox to copy Maxima & Minima from</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public BoundingBox From(BoundingBox other)
+        public static BoundingBox From(BoundingBox other)
         {
             if (other == null) throw new ArgumentNullException(nameof(other));
 
@@ -160,37 +183,8 @@ namespace Themis.Geometry.Boundary
                                     .WithMaxima(x + halfWidth, y + halfWidth, z + halfWidth);
         }
 
-        /// <summary>
-        /// Extend the bounding box by an input scalar amount
-        /// </summary>
-        /// <param name="buffer">Scalar amount to buffer the minima & maxima by</param>
-        /// <returns></returns>
-        public BoundingBox Buffer(double buffer)
-        {
-            return new BoundingBox().WithMinima(MinX - buffer, MinY - buffer, MinZ - buffer)
-                                    .WithMaxima(MaxX + buffer, MaxY + buffer, MaxZ + buffer);
-        }
-
-        /// <summary>
-        /// Expand the current BoundingBox extents to include the input BoundingBox by comparing maxima/minima
-        /// </summary>
-        /// <param name="that">Input BoundingBox to include</param>
-        /// <returns></returns>
-        public BoundingBox ExpandToInclude(BoundingBox that)
-        {
-            return new BoundingBox()
-                        .WithMinima(Math.Min(this.MinX, that.MinX), Math.Min(this.MinY, that.MinY), Math.Min(this.MinZ, that.MinZ))
-                        .WithMaxima(Math.Max(this.MaxX, that.MaxX), Math.Max(this.MaxY, that.MaxY), Math.Max(this.MaxZ, that.MaxZ));
-        }
         #endregion
 
-        /// <summary>
-        /// Checks if this 2/3D BoundingBox contains the input 2/3D position
-        /// </summary>
-        /// <param name="x">Input position X</param>
-        /// <param name="y">Input position Y</param>
-        /// <param name="z">[Optional] Input position Z - defaults to double.NaN</param>
-        /// <returns></returns>
         public bool Contains(double x, double y, double z = double.NaN)
         {
             if (x < MinX || x > MaxX) return false;
@@ -199,13 +193,7 @@ namespace Themis.Geometry.Boundary
             return double.IsNaN(z) ? true : (z >= MinZ && z <= MaxZ);
         }
 
-        /// <summary>
-        /// Check if this 2/3D BoundingBox intersects with the other 2/3D BoundingBox
-        /// NOTE: This will resolve the 'lowest' dimensionality (so if one is 2D, they're both assumed 2D)
-        /// </summary>
-        /// <param name="other">BoundingBox to check intersection against</param>
-        /// <returns></returns>
-        public bool Intersects(BoundingBox other)
+        public bool Intersects(IBoundingBox other)
         {
             //< Get the dimensional offsets between the two centroids and double them
             double dX = Math.Abs(CentroidX - other.CentroidX) * 2.0;

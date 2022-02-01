@@ -63,8 +63,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMinima(Target2D.MinX - 1, Target2D.MinY) as object,
-                Value3D = new BoundingBox().From(Target3D).WithMinima(Target3D.MinX - 1, Target3D.MinY, Target3D.MinZ) as object,
+                Value2D = BoundingBox.From(Target2D).WithMinima(Target2D.MinX - 1, Target2D.MinY) as object,
+                Value3D = BoundingBox.From(Target3D).WithMinima(Target3D.MinX - 1, Target3D.MinY, Target3D.MinZ) as object,
             };
 
             Assert.False(Target2D.Equals(input.Value2D));
@@ -79,8 +79,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMinima(Target2D.MinX, Target2D.MinY + 1),
-                Value3D = new BoundingBox().From(Target3D).WithMinima(Target3D.MinX, Target3D.MinY + 1, Target3D.MinZ)
+                Value2D = BoundingBox.From(Target2D).WithMinima(Target2D.MinX, Target2D.MinY + 1),
+                Value3D = BoundingBox.From(Target3D).WithMinima(Target3D.MinX, Target3D.MinY + 1, Target3D.MinZ)
             };
 
             Assert.False(Target2D.Equals(input.Value2D));
@@ -95,8 +95,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMinima(Target2D.MinX, Target2D.MinY, Target2D.MinZ + 1),
-                Value3D = new BoundingBox().From(Target3D).WithMinima(Target3D.MinX, Target3D.MinY, Target3D.MinZ + 1)
+                Value2D = BoundingBox.From(Target2D).WithMinima(Target2D.MinX, Target2D.MinY, Target2D.MinZ + 1),
+                Value3D = BoundingBox.From(Target3D).WithMinima(Target3D.MinX, Target3D.MinY, Target3D.MinZ + 1)
             };
 
             //< This should resolve to true as the 2D BB has Z of NaN and (NaN + 1 = NaN)
@@ -113,8 +113,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMaxima(Target2D.MaxX - 1, Target2D.MaxY) as object,
-                Value3D = new BoundingBox().From(Target3D).WithMaxima(Target3D.MaxX - 1, Target3D.MaxY, Target3D.MaxZ) as object,
+                Value2D = BoundingBox.From(Target2D).WithMaxima(Target2D.MaxX - 1, Target2D.MaxY) as object,
+                Value3D = BoundingBox.From(Target3D).WithMaxima(Target3D.MaxX - 1, Target3D.MaxY, Target3D.MaxZ) as object,
             };
 
             Assert.False(Target2D.Equals(input.Value2D));
@@ -129,8 +129,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMaxima(Target2D.MaxX, Target2D.MaxY + 1),
-                Value3D = new BoundingBox().From(Target3D).WithMaxima(Target3D.MaxX, Target3D.MaxY + 1, Target3D.MaxZ)
+                Value2D = BoundingBox.From(Target2D).WithMaxima(Target2D.MaxX, Target2D.MaxY + 1),
+                Value3D = BoundingBox.From(Target3D).WithMaxima(Target3D.MaxX, Target3D.MaxY + 1, Target3D.MaxZ)
             };
 
             Assert.False(Target2D.Equals(input.Value2D));
@@ -145,8 +145,8 @@ namespace Themis.Geometry.Tests.Boundary
 
             var input = new
             {
-                Value2D = new BoundingBox().From(Target2D).WithMaxima(Target2D.MaxX, Target2D.MaxY, Target2D.MaxZ + 1),
-                Value3D = new BoundingBox().From(Target3D).WithMaxima(Target3D.MaxX, Target3D.MaxY, Target3D.MaxZ + 1)
+                Value2D = BoundingBox.From(Target2D).WithMaxima(Target2D.MaxX, Target2D.MaxY, Target2D.MaxZ + 1),
+                Value3D = BoundingBox.From(Target3D).WithMaxima(Target3D.MaxX, Target3D.MaxY, Target3D.MaxZ + 1)
             };
 
             //< This should resolve to true as the 2D BB has Z of NaN and (NaN + 1 = NaN)
@@ -161,8 +161,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void WithOtherBoundingBoxMinimaTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             var Actual2D = new BoundingBox().WithMinima(Target2D);
             var Actual3D = new BoundingBox().WithMinima(Target3D);
@@ -180,8 +180,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void WithOtherBoundingBoxMaximaTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             var Actual2D = new BoundingBox().WithMaxima(Target2D);
             var Actual3D = new BoundingBox().WithMaxima(Target3D);
@@ -238,8 +238,8 @@ namespace Themis.Geometry.Tests.Boundary
             double Buffer = 5.0;
 
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             var Actual2D = Target2D.Buffer(Buffer);
             var Actual3D = Target3D.Buffer(Buffer);
@@ -282,8 +282,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void ContainsPointInsideSuccessTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             bool Contains2D = Target2D.Contains(Target2D.CentroidX, Target2D.CentroidY);
             bool Contains3D = Target3D.Contains(Target3D.CentroidX, Target3D.CentroidY, Target2D.CentroidZ);
@@ -296,8 +296,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void ContainsPointOutsideFailTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             bool BadX2D = Target2D.Contains(Target2D.MaxX + 0.01, Target2D.CentroidY);
             bool BadY2D = Target2D.Contains(Target2D.CentroidX, Target2D.MaxY + 0.01);
@@ -351,8 +351,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void WidthTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedWidth = Target2D.MaxX - Target2D.MinX;
 
@@ -365,8 +365,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void HeightTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedHeight = Target2D.MaxY - Target2D.MinY;
 
@@ -379,8 +379,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void DepthTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedDepth = Target3D.MaxZ - Target3D.MinZ;
 
@@ -394,8 +394,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void AreaTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedArea = Target2D.Width * Target2D.Height;
 
@@ -408,8 +408,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void VolumeTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedVolume = Target3D.Width * Target3D.Height * Target3D.Depth;
 
@@ -440,8 +440,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void CentroidXTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedCentroid = BoundingBox.GetCentroid(Target2D.MinX, Target2D.MaxX);
 
@@ -453,8 +453,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void CentroidYTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedCentroid = BoundingBox.GetCentroid(Target2D.MinY, Target2D.MaxY);
 
@@ -466,8 +466,8 @@ namespace Themis.Geometry.Tests.Boundary
         public void CentroidZTest()
         {
             var Target2D = _Faker2D.Generate();
-            var Target3D = new BoundingBox().From(Target2D)
-                                            .WithZ(0, 100.0);
+            var Target3D = BoundingBox.From(Target2D)
+                                      .WithZ(0, 100.0);
 
             double ExpectedCentroid = BoundingBox.GetCentroid(Target3D.MinZ, Target3D.MaxZ);
 

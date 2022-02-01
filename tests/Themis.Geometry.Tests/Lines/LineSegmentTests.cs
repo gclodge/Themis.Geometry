@@ -13,6 +13,9 @@ namespace Themis.Geometry.Tests.Lines
     public class LineSegmentTests
     {
         const int Dimensions = 3;
+        const int Decimals = 6;
+
+        const double Epsilon = 1E-6;
         const double TestValue = -500.1;
         const double MinValue = -500.0;
         const double MaxValue = 500.0;
@@ -97,8 +100,9 @@ namespace Themis.Geometry.Tests.Lines
 
             var Seg = new LineSegment(A, B);
             var ActualUnit = Seg.Unit;
-            Assert.Equal(ExpectedLength, ActualUnit.L2Norm());
-            Assert.Equal(ExpectedDirection, ActualUnit);
+            var ActualDirDiff = (ExpectedDirection - ActualUnit).L2Norm();
+            Assert.Equal(ExpectedLength, ActualUnit.L2Norm(), Decimals);
+            Assert.True(ActualDirDiff < Epsilon);
         }
         #endregion
 
@@ -170,8 +174,6 @@ namespace Themis.Geometry.Tests.Lines
         [Fact]
         public void ExtractPointTest()
         {
-            const int Decimals = 6;
-
             var A = _Faker.RandomDoubleArray(Dimensions, MinValue, MaxValue).ToVector();
             var B = A + Offset;
 
