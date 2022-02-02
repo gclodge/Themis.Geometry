@@ -10,6 +10,7 @@ namespace Themis.Geometry.Lines
         public Vector<double> B { get; protected set; }
 
         public double Length => (B - A).L2Norm();
+        public double Length2D => (B.CloneModify(2, 0) - A.CloneModify(2, 0)).L2Norm();
 
         public Vector<double> Unit => (B - A) / Length;
 

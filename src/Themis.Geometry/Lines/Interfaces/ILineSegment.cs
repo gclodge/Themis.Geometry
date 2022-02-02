@@ -18,6 +18,11 @@ namespace Themis.Geometry.Lines.Interfaces
         /// </summary>
         double Length { get; }
         /// <summary>
+        /// The 2D Vector (Euclidean) magnitude of the current LineSegment formed by A->B
+        /// </summary>
+        double Length2D { get; }
+
+        /// <summary>
         /// Gets the Unit Vector pointing in the direction of the current LineSegment formed by A->B
         /// </summary>
         Vector<double> Unit { get; }

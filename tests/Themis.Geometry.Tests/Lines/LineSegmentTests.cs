@@ -81,11 +81,13 @@ namespace Themis.Geometry.Tests.Lines
             var A = _Faker.RandomDoubleArray(Dimensions, MinValue, MaxValue).ToVector();
             var B = A + Offset;
 
-            double ExpectedLength = (A - B).L2Norm();
+            double ExpectedLength = (B - A).L2Norm();
+            double ExpectedLength2D = (B.CloneModify(2, 0) - A.CloneModify(2, 0)).L2Norm();
 
             var Seg = new LineSegment(A, B);
 
             Assert.Equal(ExpectedLength, Seg.Length);
+            Assert.Equal(ExpectedLength2D, Seg.Length2D);
         }
 
         [Fact]
