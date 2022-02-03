@@ -22,8 +22,8 @@ namespace Themis.Geometry
         /// Generate a [3, 3] Matrix that will apply a rotation based on the input Roll (X), Pitch (Y), and Heading/Yaw (Z) angles
         /// </summary>
         /// <param name="r">Roll (X) angle - in radians</param>
-        /// <param name="p">Roll (Y) angle - in radians</param>
-        /// <param name="h">Roll (Z) angle - in radians</param>
+        /// <param name="p">Pitch (Y) angle - in radians</param>
+        /// <param name="h">Heading (Z) angle - in radians</param>
         /// <returns>Fully composed [3, 3] Rotation Matrix</returns>
         public static Matrix<double> GenerateRotationMatrix(double r, double p, double h)
         {
