@@ -7,6 +7,8 @@ namespace Themis.Geometry.Boundary
         //< This is the allowable 'epsilon' (error) when checking intersection
         const double IntersectionEPS = 1E-7;
 
+        public const double SinglePointBuffer = 2.0 * 1E-3;
+
         public double MinX { get; private set; } = double.MaxValue;
         public double MinY { get; private set; } = double.MaxValue;
         public double MinZ { get; private set; } = double.MaxValue;
@@ -108,23 +110,15 @@ namespace Themis.Geometry.Boundary
             return this;
         }
 
-        /// <summary>
-        /// Extend the bounding box by an input scalar amount
-        /// </summary>
-        /// <param name="buffer">Scalar amount to buffer the minima & maxima by</param>
-        /// <returns></returns>
-        public BoundingBox Buffer(double buffer)
+        
+        public IBoundingBox Buffer(double buffer)
         {
             return new BoundingBox().WithMinima(MinX - buffer, MinY - buffer, MinZ - buffer)
                                     .WithMaxima(MaxX + buffer, MaxY + buffer, MaxZ + buffer);
         }
 
-        /// <summary>
-        /// Expand the current BoundingBox extents to include the input BoundingBox by comparing maxima/minima
-        /// </summary>
-        /// <param name="that">Input BoundingBox to include</param>
-        /// <returns></returns>
-        public BoundingBox ExpandToInclude(BoundingBox that)
+        
+        public IBoundingBox ExpandToInclude(IBoundingBox that)
         {
             return new BoundingBox()
                         .WithMinima(Math.Min(this.MinX, that.MinX), Math.Min(this.MinY, that.MinY), Math.Min(this.MinZ, that.MinZ))
@@ -149,13 +143,41 @@ namespace Themis.Geometry.Boundary
         }
 
         /// <summary>
+        /// Generate a new 2D BoundingBox with the specified X/Y Minima & Maxima
+        /// </summary>
+        /// <param name="minX">Minimum X-Coordinate</param>
+        /// <param name="minY">Minimum Y-Coordinate</param>
+        /// <param name="maxX">Maximum X-Coordinate</param>
+        /// <param name="maxY">Maximum Y-Coordinate</param>
+        /// <returns></returns>
+        public static BoundingBox From(double minX, double minY, double maxX, double maxY)
+        {
+            return new BoundingBox().WithMinima(minX, minY).WithMaxima(maxX, maxY);
+        }
+
+        /// <summary>
+        /// Generate a new 3D BoundingBox with the specified X/Y/Z Minima & Maxima
+        /// </summary>
+        /// <param name="minX">Minimum X-Coordinate</param>
+        /// <param name="minY">Minimum Y-Coordinate</param>
+        /// <param name="minZ">Minimum Z-Coordinate</param>
+        /// <param name="maxX">Maximum X-Coordinate</param>
+        /// <param name="maxY">Maximum Y-Coordinate</param>
+        /// <param name="maxZ">Maximum Z-Coordinate</param>
+        /// <returns></returns>
+        public static BoundingBox From(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
+        {
+            return new BoundingBox().WithMinima(minX, minY, minZ).WithMaxima(maxX, maxY, maxZ);
+        }
+
+        /// <summary>
         /// Create a simple 2D 'buffered' bounding box around the specified (x, y) position
         /// </summary>
         /// <param name="x">Input position X</param>
         /// <param name="y">Input position Y</param>
         /// <param name="bufferValue">Scalar buffer value to be added to each dimension</param>
         /// <returns></returns>
-        public BoundingBox FromPoint(double x, double y, double bufferValue)
+        public static BoundingBox FromPoint(double x, double y, double bufferValue)
         {
             //< Get the 'half-width' of thee buffer to be applied to both minima/maxima
             double halfWidth = bufferValue / 2.0;
@@ -172,7 +194,7 @@ namespace Themis.Geometry.Boundary
         /// <param name="z">Input position Z</param>
         /// <param name="bufferValue">Scalar buffer value to be added to each dimension</param>
         /// <returns></returns>
-        public BoundingBox FromPoint(double x, double y, double z, double bufferValue)
+        public static BoundingBox FromPoint(double x, double y, double z, double bufferValue)
         {
             //< Get the 'half-width' of thee buffer to be applied to both minima/maxima
             double halfWidth = bufferValue / 2.0;

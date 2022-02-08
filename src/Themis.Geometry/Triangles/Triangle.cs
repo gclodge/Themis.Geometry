@@ -20,7 +20,7 @@ namespace Themis.Geometry.Triangles
         public double D => Normal.DotProduct(Vertices.First());
         public Vector<double> Normal => GetNormal(Vertices);
 
-        public BoundingBox Bounds { get; protected set; }
+        public BoundingBox Envelope { get; protected set; }
 
         public IList<LineSegment> Edges { get; protected set; }
         public IList<Vector<double>> Vertices { get; protected set; }
@@ -30,7 +30,7 @@ namespace Themis.Geometry.Triangles
             this.Vertices = verts.Select(v => v.Clone())
                                  .ToList();
 
-            this.Bounds = GenerateBoundingBox(Vertices);
+            this.Envelope = GenerateBoundingBox(Vertices);
             this.Edges = GenerateEdges(Vertices);
         }
 
@@ -40,8 +40,7 @@ namespace Themis.Geometry.Triangles
             double[] x = verts.Select(v => v[0]).ToArray();
             double[] y = verts.Select(v => v[1]).ToArray();
 
-            return new BoundingBox().WithMinima(x.Min(), y.Min())
-                                    .WithMaxima(x.Max(), y.Max());
+            return BoundingBox.From(x.Min(), y.Min(), x.Max(), y.Max());
         }
 
         static IList<LineSegment> GenerateEdges(IList<Vector<double>> verts)

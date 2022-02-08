@@ -19,7 +19,7 @@ namespace Themis.Geometry.Triangles.Interfaces
         /// <summary>
         /// The 2D BoundingBox envelope of the 2D projection of this Triangle geometry
         /// </summary>
-        BoundingBox Bounds { get; }
+        BoundingBox Envelope { get; }
 
         /// <summary>
         /// Collection of the 3 LineSegments that compose this Triangle geometry

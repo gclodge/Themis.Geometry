@@ -156,7 +156,7 @@ namespace Themis.Geometry.Tests.Boundary
         }
         #endregion
 
-        #region Fluent Interface Tests
+        #region Fluent Interface & Factory Method Tests
         [Fact]
         public void WithOtherBoundingBoxMinimaTest()
         {
@@ -202,7 +202,7 @@ namespace Themis.Geometry.Tests.Boundary
             double Y = 5.0;
             double Buffer = 10.0;
 
-            var Actual2D = new BoundingBox().FromPoint(X, Y, Buffer);
+            var Actual2D = BoundingBox.FromPoint(X, Y, Buffer);
 
             Assert.Equal(Actual2D.Width, Buffer);
             Assert.Equal(Actual2D.Height, Buffer);
@@ -221,7 +221,7 @@ namespace Themis.Geometry.Tests.Boundary
             double Z = 5.0;
             double Buffer = 10.0;
 
-            var Actual3D = new BoundingBox().FromPoint(X, Y, Z, Buffer);
+            var Actual3D = BoundingBox.FromPoint(X, Y, Z, Buffer);
 
             Assert.Equal(Actual3D.Width, Buffer);
             Assert.Equal(Actual3D.Height, Buffer);
@@ -230,6 +230,39 @@ namespace Themis.Geometry.Tests.Boundary
             Assert.Equal(Actual3D.CentroidX, X);
             Assert.Equal(Actual3D.CentroidY, Y);
             Assert.Equal(Actual3D.CentroidZ, Z);
+        }
+
+        [Fact]
+        public void From2DMinimaMaximaTest()
+        {
+            double MinX = 0.0; double MaxX = 5.0;
+            double MinY = 0.0; double MaxY = 10.0;
+
+            var Actual = BoundingBox.From(MinX, MinY, MaxX, MaxY);
+
+            Assert.Equal(MinX, Actual.MinX);
+            Assert.Equal(MinY, Actual.MinY);
+            Assert.True(double.IsNaN(Actual.MinZ));
+            Assert.Equal(MaxX, Actual.MaxX);
+            Assert.Equal(MaxY, Actual.MaxY);
+            Assert.True(double.IsNaN(Actual.MaxZ));
+        }
+
+        [Fact]
+        public void From3DMinimaMaximaTest()
+        {
+            double MinX = 0.0; double MaxX = 5.0;
+            double MinY = 0.0; double MaxY = 10.0;
+            double MinZ = -5.0; double MaxZ = 25.0;
+
+            var Actual = BoundingBox.From(MinX, MinY, MinZ, MaxX, MaxY, MaxZ);
+
+            Assert.Equal(MinX, Actual.MinX);
+            Assert.Equal(MinY, Actual.MinY);
+            Assert.Equal(MinZ, Actual.MinZ);
+            Assert.Equal(MaxX, Actual.MaxX);
+            Assert.Equal(MaxY, Actual.MaxY);
+            Assert.Equal(MaxZ, Actual.MaxZ);
         }
 
         [Fact]
@@ -322,8 +355,8 @@ namespace Themis.Geometry.Tests.Boundary
             var Target2D = _Faker2D.Generate();
             var Target3D = _Faker3D.Generate();
 
-            var Other2D = new BoundingBox().FromPoint(Target2D.MaxX, Target2D.MaxY, Buffer);
-            var Other3D = new BoundingBox().FromPoint(Target3D.MaxX, Target3D.MaxY, Target3D.MaxZ, Buffer);
+            var Other2D = BoundingBox.FromPoint(Target2D.MaxX, Target2D.MaxY, Buffer);
+            var Other3D = BoundingBox.FromPoint(Target3D.MaxX, Target3D.MaxY, Target3D.MaxZ, Buffer);
 
             Assert.True(Target2D.Intersects(Other2D));
             Assert.True(Target3D.Intersects(Other3D));
@@ -338,8 +371,8 @@ namespace Themis.Geometry.Tests.Boundary
             var Target2D = _Faker2D.Generate();
             var Target3D = _Faker3D.Generate();
 
-            var Other2D = new BoundingBox().FromPoint(Target2D.MaxX + Offset, Target2D.MaxY + Offset, Buffer);
-            var Other3D = new BoundingBox().FromPoint(Target3D.MaxX + Offset, Target3D.MaxY + Offset, Target3D.MaxZ + Offset, Buffer);
+            var Other2D = BoundingBox.FromPoint(Target2D.MaxX + Offset, Target2D.MaxY + Offset, Buffer);
+            var Other3D = BoundingBox.FromPoint(Target3D.MaxX + Offset, Target3D.MaxY + Offset, Target3D.MaxZ + Offset, Buffer);
 
             Assert.False(Target2D.Intersects(Other2D));
             Assert.False(Target3D.Intersects(Other3D));

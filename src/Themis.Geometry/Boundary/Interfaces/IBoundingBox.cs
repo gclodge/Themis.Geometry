@@ -70,7 +70,7 @@
         /// <param name="y">Input position Y</param>
         /// <param name="z">[Optional] Input position Z - defaults to double.NaN</param>
         /// <returns></returns>
-        bool Contains(double x, double y, double z);
+        bool Contains(double x, double y, double z = double.NaN);
         /// <summary>
         /// Check if this 2/3D IBoundingBox intersects with the other 2/3D IBoundingBox
         /// NOTE: This will resolve the 'lowest' dimensionality (so if one is 2D, they're both assumed 2D)
@@ -78,5 +78,18 @@
         /// <param name="other">IBoundingBox to check intersection against</param>
         /// <returns></returns>
         bool Intersects(IBoundingBox other);
+
+        /// <summary>
+        /// Expand the current BoundingBox extents to include the input BoundingBox by comparing maxima/minima
+        /// </summary>
+        /// <param name="that">Input BoundingBox to include</param>
+        /// <returns></returns>
+        IBoundingBox Buffer(double buffer);
+        /// <summary>
+        /// Extend the bounding box by an input scalar amount
+        /// </summary>
+        /// <param name="buffer">Scalar amount to buffer the minima & maxima by</param>
+        /// <returns></returns>
+        IBoundingBox ExpandToInclude(IBoundingBox that);
     }
 }

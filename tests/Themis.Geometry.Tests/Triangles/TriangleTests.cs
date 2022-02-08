@@ -88,13 +88,13 @@ namespace Themis.Geometry.Tests.Triangles
             var TriangleA = new Triangle(verts);
 
             //< 2D bounds should match expected values
-            Assert.Equal(ExpectedMinX, TriangleA.Bounds.MinX);
-            Assert.Equal(ExpectedMinY, TriangleA.Bounds.MinY);
-            Assert.Equal(ExpectedMaxX, TriangleA.Bounds.MaxX);
-            Assert.Equal(ExpectedMaxY, TriangleA.Bounds.MaxY);
+            Assert.Equal(ExpectedMinX, TriangleA.Envelope.MinX);
+            Assert.Equal(ExpectedMinY, TriangleA.Envelope.MinY);
+            Assert.Equal(ExpectedMaxX, TriangleA.Envelope.MaxX);
+            Assert.Equal(ExpectedMaxY, TriangleA.Envelope.MaxY);
             //< Elevation minima/maxima should remain NaN as un-used here
-            Assert.True(double.IsNaN(TriangleA.Bounds.MinZ));
-            Assert.True(double.IsNaN(TriangleA.Bounds.MaxZ));
+            Assert.True(double.IsNaN(TriangleA.Envelope.MinZ));
+            Assert.True(double.IsNaN(TriangleA.Envelope.MaxZ));
         }
         #endregion
 
