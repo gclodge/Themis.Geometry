@@ -18,7 +18,6 @@ namespace Themis.Geometry.Tests.Index.QuadTree
         const int Dimensions = 2;
 
         const double MinValue = -500.0;
-        const double MidValue = 0.0;
         const double MaxValue = 500.0;
 
         Faker _Faker;
