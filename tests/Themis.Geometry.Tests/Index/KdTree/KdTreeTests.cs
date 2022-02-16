@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 
-using Bogus;
 using Xunit;
 using Assert = Xunit.Assert;
 
 using Themis.Geometry.Index.KdTree;
 using Themis.Geometry.Index.KdTree.TypeMath;
-using Themis.Geometry.Index.KdTree.TypeMath.Interfaces;
-using System.Collections.Generic;
 
 namespace Themis.Geometry.Tests.Index.KdTree
 {

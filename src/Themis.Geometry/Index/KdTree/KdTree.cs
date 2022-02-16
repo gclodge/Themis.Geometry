@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 
 using Themis.Geometry.Index.KdTree.Interfaces;
 using Themis.Geometry.Index.KdTree.TypeMath.Interfaces;
