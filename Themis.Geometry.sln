@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Geometry", "src\Themis.Geometry\Themis.Geometry.csproj", "{FAC9C32B-8BFA-467A-9D01-50561D700FBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Themis.Geometry.Tests", "tests\Themis.Geometry.Tests\Themis.Geometry.Tests.csproj", "{AFF9D7AC-46D2-4FD3-BD61-D4D783A7702C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAC9C32B-8BFA-467A-9D01-50561D700FBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC9C32B-8BFA-467A-9D01-50561D700FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC9C32B-8BFA-467A-9D01-50561D700FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC9C32B-8BFA-467A-9D01-50561D700FBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFF9D7AC-46D2-4FD3-BD61-D4D783A7702C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFF9D7AC-46D2-4FD3-BD61-D4D783A7702C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFF9D7AC-46D2-4FD3-BD61-D4D783A7702C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFF9D7AC-46D2-4FD3-BD61-D4D783A7702C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64B28121-CE32-490D-B4EF-4F8CFC3582A3}
+	EndGlobalSection
+EndGlobal
