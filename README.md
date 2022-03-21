@@ -238,7 +238,7 @@ var env = BoundingBox.FromPoint(point[0], point[1], BoundingBox.SinglePointBuffe
 // Add to tree
 tree.Add(point, env);
 ```
-Now, let's say you've got a collection if `Triangle` geometries that represent a 3D ground surface and you want to perform efficient collision detection.  Here's how you'd build the tree:
+Now, let's say you've got a collection of `Triangle` geometries that represent a 3D ground surface & you want to perform efficient collision detection.  Here's how you'd build the tree:
 ```csharp
 var tree = new QuadTree<Triangle>();
 // Add each Triangle using the existing IBoundingBox envelope
