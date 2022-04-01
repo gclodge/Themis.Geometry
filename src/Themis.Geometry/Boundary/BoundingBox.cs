@@ -9,13 +9,13 @@ namespace Themis.Geometry.Boundary
 
         public const double SinglePointBuffer = 2.0 * 1E-3;
 
-        public double MinX { get; private set; } = double.MaxValue;
-        public double MinY { get; private set; } = double.MaxValue;
-        public double MinZ { get; private set; } = double.MaxValue;
+        public double MinX { get; set; } = double.MaxValue;
+        public double MinY { get; set; } = double.MaxValue;
+        public double MinZ { get; set; } = double.MaxValue;
 
-        public double MaxX { get; private set; } = double.MinValue;
-        public double MaxY { get; private set; } = double.MinValue;
-        public double MaxZ { get; private set; } = double.MinValue;
+        public double MaxX { get; set; } = double.MinValue;
+        public double MaxY { get; set; } = double.MinValue;
+        public double MaxZ { get; set; } = double.MinValue;
 
         public double Width => (MaxX - MinX);
         public double Height => (MaxY - MinY);
